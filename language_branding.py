@@ -1,5 +1,6 @@
 """Module containing language and color data."""
 
+from collections.abc import KeysView
 from typing import TypedDict
 
 
@@ -10,7 +11,7 @@ class ColorInfo(TypedDict):
     hex_code: str
 
 
-language_color_data: dict[str, ColorInfo] = {
+language_branding: dict[str, ColorInfo] = {
     "Python": {"int_value": 264936, "hex_code": "#3776AB"},  # Python Blue
     "JavaScript": {"int_value": 16766720, "hex_code": "#F7DF1E"},  # JS Yellow
     "Java": {"int_value": 16711680, "hex_code": "#007396"},  # Java Blue
@@ -35,3 +36,5 @@ language_color_data: dict[str, ColorInfo] = {
     "SQL": {"int_value": 16777215, "hex_code": "#FFFFFF"},  # SQL White
     "PowerShell": {"int_value": 16777215, "hex_code": "#012456"},  # PowerShell Blue
 }
+
+language_keys: KeysView[str] = language_branding.keys()

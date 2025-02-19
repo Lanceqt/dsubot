@@ -25,9 +25,7 @@ language_branding: dict[str, ColorInfo] = {
     "Kotlin": ColorInfo(int_value=15065600, hex_code="#A97BFF"),  # Kotlin Purple
     "Ruby": ColorInfo(int_value=16711680, hex_code="#CC342D"),  # Ruby Red
     "R": ColorInfo(int_value=4249477, hex_code="#276DC3"),  # R Blue
-    "Objective-C": ColorInfo(
-        int_value=16777215, hex_code="#F09433"
-    ),  # Objective-C Orange
+    "Objective-C": ColorInfo(int_value=16777215, hex_code="#F09433"),  # ObjC Orange
     "TypeScript": ColorInfo(int_value=3447003, hex_code="#3178C6"),  # TS Blue
     "Scala": ColorInfo(int_value=13421772, hex_code="#DC322F"),  # Scala Red
     "Perl": ColorInfo(int_value=16777215, hex_code="#002F5F"),  # Perl Blue
@@ -35,9 +33,7 @@ language_branding: dict[str, ColorInfo] = {
     "Haskell": ColorInfo(int_value=16711680, hex_code="#5D4F85"),  # Haskell Purple
     "Rust": ColorInfo(int_value=16777215, hex_code="#000000"),  # Rust Black
     "Delphi": ColorInfo(int_value=16760576, hex_code="#E64646"),  # Delphi Red
-    "OCaml": ColorInfo(
-        int_value=16764057, hex_code="#E37F1E"
-    ),  # OCaml Orange (Slightly different from Pascal)
+    "OCaml": ColorInfo(int_value=16764057, hex_code="#E37F1E"),  # OCaml Orange
     "F#": ColorInfo(int_value=2649164, hex_code="#3700FF"),  # F# Purple-Blue
     "Elixir": ColorInfo(int_value=16711680, hex_code="#4B275F"),  # Elixir Purple
 }

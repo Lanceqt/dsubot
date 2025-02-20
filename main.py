@@ -1,7 +1,7 @@
 # main.py
 """Entry point for the dsubot application."""
 
-from src.dsubot.bot import run_bot
+from dsubot.bot import run_bot
 
 
 def main() -> None:

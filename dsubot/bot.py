@@ -27,6 +27,7 @@ def run_bot() -> None:
         """Perform housekeeping tasks when the bot is ready."""
         print(f"Logged in as {bot.user} (ID: {bot.user.id})")
         guild_id = 1339348789802176623  # Replace with your actual guild ID
+
         await role_management.ensure_language_roles(bot, guild_id)  # Call the funct
 
     # Load commands from the commands directory

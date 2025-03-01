@@ -35,10 +35,55 @@ class Faction(commands.Cog):
 
         if color_info:
             color_int = color_info.int_value
-            try:
-                await interaction.author.send(
-                    f"You chose {lang} with color {color_int}!",
+            guild = interaction.guild
+            member = interaction.author
+
+            if not guild:
+                await interaction.response.send_message(
+                    "This command must be used in a server.",
+                    ephemeral=True,
                 )
+                return
+
+            if not isinstance(member, disnake.Member):
+                await interaction.response.send_message(
+                    "This command must be used by a member.",
+                    ephemeral=True,
+                )
+                return
+
+            current_faction_roles: list[disnake.Role] = [
+                role
+                for role in member.roles
+                if role is not None
+                and role.name.endswith(" Faction")
+                and role.name.replace(" Faction", "")
+                in language_branding.language_branding
+            ]
+
+            role_name: str = f"{lang} Faction"
+            new_role = disnake.utils.get(guild.roles, name=role_name)
+
+            if not new_role:
+                new_role = await guild.create_role(
+                    name=role_name,
+                    color=disnake.Color(color_int),
+                    reason="User chose a faction.",
+                )
+
+            changing_faction = bool(current_faction_roles)
+            old_role_name: str | None = None
+            if changing_faction:
+                old_role_name = current_faction_roles[0].name
+                await member.remove_roles(
+                    *current_faction_roles,
+                    reason="User changed faction.",
+                )
+                message = f"you have changed your faction from {old_role_name} to {role_name}."
+            else:
+                message = f"You chose {lang} Faction!"
+            try:
+                await interaction.author.send(message)
                 await interaction.response.send_message(
                     "I've sent you a DM with your faction information!",
                     ephemeral=True,
@@ -48,6 +93,13 @@ class Faction(commands.Cog):
                     "I couldn't send you a DM. Please make sure your DMs are open.",
                     ephemeral=True,
                 )
+            if not new_role:
+                # Role creation failed
+                await interaction.response.send_message(
+                    "I couldn't create the faction role. Please check bot permissions.",
+                    ephemeral=True,
+                )
+                await member.add_roles(new_role, reason="Assigning new faction")
         else:
             await interaction.response.send_message(
                 f"Sorry, the language '{lang}' is not supported.",

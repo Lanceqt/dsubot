@@ -1,4 +1,3 @@
-# src/dsubot/commands/faction.py
 """module implements the faction command."""
 
 import disnake

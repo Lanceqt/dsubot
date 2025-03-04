@@ -18,6 +18,16 @@ Raises:
 """
 
 import os
+from pathlib import Path
+
+from dotenv import load_dotenv
+
+ROOT_DIR = Path(__file__).parent.parent.parent
+ENV_PATH = ROOT_DIR / ".env"
+if not ENV_PATH.exists():
+    error = f"Environment file not found: {ENV_PATH}"
+    raise FileNotFoundError(error)
+load_dotenv(ROOT_DIR / ".env")
 
 
 def get_guild_id() -> int:

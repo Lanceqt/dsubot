@@ -8,23 +8,14 @@ from dotenv import load_dotenv
 
 from dsubot.utils import role_management
 from dsubot.utils.env_handler import BOT_TOKEN, GUILD_ID
-
-
-def setup_logging() -> None:
-    """Configure logging for the bot."""
-    logging.basicConfig(
-        level=logging.INFO,
-        format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
-        datefmt="%Y-%m-%d %H:%M:%S",
-    )
-
+from dsubot.utils.logging_handler import setup_bot_logging
 
 logger = logging.getLogger(__name__)
 
 
 def run_bot() -> None:
     """Initialize and runs the Discord bot."""
-    setup_logging()
+    setup_bot_logging()
     load_dotenv()
 
     intents = disnake.Intents(

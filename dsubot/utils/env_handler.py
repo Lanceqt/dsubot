@@ -17,36 +17,14 @@ Raises:
 
 """
 
-import os
-from pathlib import Path
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
-from dotenv import load_dotenv
-
-ROOT_DIR = Path(__file__).parent.parent.parent
-ENV_PATH = ROOT_DIR / ".env"
-if not ENV_PATH.exists():
-    error = f"Environment file not found: {ENV_PATH}"
-    raise FileNotFoundError(error)
-load_dotenv(ROOT_DIR / ".env")
+class BotConfig(BaseSettings):
+  model_config = SettingsConfigDict(env_file='.env')
+  guild_id: int
+  token: str
 
 
-def get_guild_id() -> int:
-    """Get the guild ID from environment variables."""
-    guild_id = os.getenv("GUILD_ID")
-    if guild_id is None:
-        error = "guild_id is not set in the environment variables."
-        raise ValueError(error)
-    return int(guild_id)
-
-
-def get_bot_token() -> str:
-    """Get the bot token from environment variables."""
-    token = os.getenv("TOKEN")
-    if token is None:
-        error = "TOKEN is not set in the environment variables."
-        raise ValueError(error)
-    return token
-
-
-GUILD_ID = get_guild_id()
-BOT_TOKEN = get_bot_token()
+# type ignore: This is an annoying workaround for the fact that pydantic will automatically fill in the missing values from the .env
+# but it doesn't "know" that, so it thinks we have to provide both guild_id and token to `BotConfig`
+bot_config = BotConfig() # type: ignore

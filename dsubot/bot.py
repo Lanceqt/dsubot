@@ -1,13 +1,13 @@
 """initializes and runs the Discord bot."""
 
 import logging
-import os
 
 import disnake
 from disnake.ext import commands
 from dotenv import load_dotenv
 
-from dsubot.utils import role_management  # Import the new module
+from dsubot.utils import role_management
+from dsubot.utils.env_handler import BOT_TOKEN, GUILD_ID
 
 
 def setup_logging() -> None:
@@ -27,7 +27,12 @@ def run_bot() -> None:
     setup_logging()
     load_dotenv()
 
-    intents = disnake.Intents(members=True, message_content=True, guilds=True)
+    intents = disnake.Intents(
+        members=True,
+        message_content=True,
+        guilds=True,
+        guild_messages=True,
+    )
     command_sync_flags = commands.CommandSyncFlags.default()
     command_sync_flags.sync_commands_debug = True
     bot = commands.InteractionBot(
@@ -39,10 +44,10 @@ def run_bot() -> None:
     async def on_ready() -> None:  # type: ignore  # noqa: PGH003
         """Perform housekeeping tasks when the bot is ready."""
         logger.info("Logged in as %s (ID: %s)", bot.user, bot.user.id)
-        guild_id = 1339348789802176623  # Replace with your actual guild ID
+        guild_id = GUILD_ID
 
         await role_management.ensure_language_roles(bot, guild_id)
 
     bot.load_extension("dsubot.commands.faction")
 
-    bot.run(os.getenv("TOKEN"))
+    bot.run(BOT_TOKEN)

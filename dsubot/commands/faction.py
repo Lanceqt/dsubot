@@ -53,34 +53,18 @@ class Faction(commands.Cog):
             return
 
         try:
-            existing_lang_role = next(
-                (
-                    role
-                    for role in member.roles
-                    if role is not None
-                    and hasattr(role, "name")
-                    and role.name in language_branding.language_keys
-                    and role.name not in white_listed_roles
-                ),
-                None,
-            )
-            if existing_lang_role is not None:
-                if existing_lang_role.name == lang:
-                    await interaction.response.send_message(
-                        f"You are already representing {lang}!",
-                        ephemeral=True,
-                    )
-                    return
-                await member.remove_roles(existing_lang_role)
+            await remove_existing_roles(lang, member, interaction)
 
             new_role = disnake.utils.get(interaction.guild.roles, name=lang)
-            if new_role:
-                await member.add_roles(new_role)
-                await interaction.response.send_message(
-                    f"Welcome to the {lang} faction! 🎉",
-                    ephemeral=True,
-                )
+
+            if not new_role:
                 return
+
+            await member.add_roles(new_role)
+            await interaction.response.send_message(
+                f"Welcome to the {lang} faction! 🎉",
+                ephemeral=True,
+            )
 
         except disnake.Forbidden:
             await interaction.response.send_message(
@@ -90,6 +74,31 @@ class Faction(commands.Cog):
         except disnake.HTTPException as e:
             await interaction.response.send_message(
                 f"Failed to manage roles: {e!s}",
+                ephemeral=True,
+            )
+
+
+async def remove_existing_roles(
+    roleToAdd: str, member: disnake.Member, interaction: disnake.Interaction
+):
+    """
+    Remove any existing roles that are not the one to be added, and if the user is already representing the faction, send a message.
+    """
+    existing_lang_roles = [
+        role
+        for role in member.roles
+        if role is not None
+        and hasattr(role, "name")
+        and role.name in language_branding.language_keys
+        and role.name not in white_listed_roles
+    ]
+
+    for existing in existing_lang_roles:
+        if existing.name != roleToAdd:
+            await member.remove_roles(existing)
+        else:
+            return await interaction.response.send_message(
+                f"You are already representing {roleToAdd}!",
                 ephemeral=True,
             )
 

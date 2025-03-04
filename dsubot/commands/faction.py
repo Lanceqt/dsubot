@@ -4,7 +4,7 @@ import disnake
 from disnake.ext import commands
 
 from dsubot import language_branding
-from dsubot.utils.env_handler import GUILD_ID
+from dsubot.utils.env_handler import bot_config
 from dsubot.utils.role_management import white_listed_roles
 
 
@@ -18,7 +18,7 @@ class Faction(commands.Cog):
     @commands.slash_command(
         name="faction",
         description="Pick your side! (this is very important)",
-        guild_ids=[GUILD_ID],
+        guild_ids=[bot_config.guild_id],
     )
     async def faction(
         self,

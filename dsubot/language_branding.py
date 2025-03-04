@@ -36,6 +36,7 @@ language_branding: dict[str, ColorInfo] = {
     "OCaml": ColorInfo(int_value=16764057, hex_code="#E37F1E"),  # OCaml Orange
     "F#": ColorInfo(int_value=2649164, hex_code="#3700FF"),  # F# Purple-Blue
     "Elixir": ColorInfo(int_value=16711680, hex_code="#4B275F"),  # Elixir Purple
+    "Gleam": ColorInfo(int_value=16763635, hex_code="#FFAFF3"),  # Gleam Pink
 }
 
 language_keys: KeysView[str] = language_branding.keys()

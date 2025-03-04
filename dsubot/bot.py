@@ -25,7 +25,7 @@ def run_bot() -> None:
         guild_messages=True,
     )
     command_sync_flags = commands.CommandSyncFlags.default()
-    command_sync_flags.sync_commands_debug = True
+    command_sync_flags.sync_commands_debug = False
     bot = commands.InteractionBot(
         intents=intents,
         command_sync_flags=command_sync_flags,

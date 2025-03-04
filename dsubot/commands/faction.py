@@ -75,6 +75,12 @@ class Faction(commands.Cog):
                 None,
             )
             if existing_lang_role is not None:
+                if existing_lang_role.name == lang:
+                    await interaction.response.send_message(
+                        f"You are already representing {lang}!",
+                        ephemeral=True,
+                    )
+                    return
                 await member.remove_roles(existing_lang_role)
                 return
 
@@ -92,13 +98,11 @@ class Faction(commands.Cog):
                 "I don't have permission to manage roles!",
                 ephemeral=True,
             )
-            return
         except disnake.HTTPException as e:
             await interaction.response.send_message(
                 f"Failed to manage roles: {e!s}",
                 ephemeral=True,
             )
-            return
 
 
 def setup(bot: commands.InteractionBot) -> None:

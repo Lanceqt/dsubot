@@ -20,12 +20,25 @@ Raises:
 from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
+
 class BotConfig(BaseSettings):
-  model_config = SettingsConfigDict(env_file='.env')
-  guild_id: int
-  token: SecretStr
+    """Configuration class for the bot settings.
+
+    Attributes:
+        model_config (SettingsConfigDict): Configuration for the settings model,
+        specifying the environment file.
+        guild_id (int): The ID of the guild (server) the bot is associated with.
+        token (SecretStr): The secret token used for authenticating the bot.
+
+    """
+
+    model_config = SettingsConfigDict(env_file=".env")
+    guild_id: int
+    token: SecretStr
 
 
-# type ignore: This is an annoying workaround for the fact that pydantic will automatically fill in the missing values from the .env
-# but it doesn't "know" that, so it thinks we have to provide both guild_id and token to `BotConfig`
-bot_config = BotConfig() # type: ignore
+# type ignore: This is an annoying workaround for the fact that pydantic will
+# automatically fill in the missing values from the .env
+# but it doesn't "know" that, so it thinks
+#  we have to provide both guild_id and token to `BotConfig`
+bot_config = BotConfig()  # type: ignore - see above

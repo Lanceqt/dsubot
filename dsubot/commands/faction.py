@@ -72,7 +72,6 @@ class Faction(commands.Cog):
                     )
                     return
                 await member.remove_roles(existing_lang_role)
-                return
 
             new_role = disnake.utils.get(interaction.guild.roles, name=lang)
             if new_role:

@@ -5,8 +5,8 @@ import logging
 import disnake
 from disnake.ext import commands
 
-from dsubot.utils.env_handler import bot_config
 from dsubot.utils import role_management
+from dsubot.utils.env_handler import bot_config
 from dsubot.utils.logging_handler import setup_bot_logging
 
 logger = logging.getLogger(__name__)

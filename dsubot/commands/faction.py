@@ -1,21 +1,12 @@
 # src/dsubot/commands/faction.py
 """module implements the faction command."""
 
-import os
-
 import disnake
 from disnake.ext import commands
 
 from dsubot import language_branding
+from dsubot.utils.env_handler import GUILD_ID
 from dsubot.utils.role_management import white_listed_roles
-
-guild_id = os.getenv("GUILD_ID")
-
-if guild_id is None:
-    error = "guild_id is not set in the environment variables."
-    raise ValueError(error)
-
-guild_id = int(guild_id)
 
 
 class Faction(commands.Cog):
@@ -28,7 +19,7 @@ class Faction(commands.Cog):
     @commands.slash_command(
         name="faction",
         description="Pick your side! (this is very important)",
-        guild_ids=[guild_id],
+        guild_ids=[GUILD_ID],
     )
     async def faction(
         self,

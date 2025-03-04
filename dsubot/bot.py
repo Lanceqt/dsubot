@@ -13,8 +13,7 @@ def run_bot() -> None:
     """Initialize and runs the Discord bot."""
     load_dotenv()
 
-    intents = disnake.Intents.default()
-    intents = disnake.Intents(members=True, message_content=True)
+    intents = disnake.Intents(members=True, message_content=True, guilds=True)
     command_sync_flags = commands.CommandSyncFlags.default()
     command_sync_flags.sync_commands_debug = True
     bot = commands.InteractionBot(

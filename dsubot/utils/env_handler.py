@@ -17,12 +17,13 @@ Raises:
 
 """
 
+from pydantic import SecretStr
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 class BotConfig(BaseSettings):
   model_config = SettingsConfigDict(env_file='.env')
   guild_id: int
-  token: str
+  token: SecretStr
 
 
 # type ignore: This is an annoying workaround for the fact that pydantic will automatically fill in the missing values from the .env

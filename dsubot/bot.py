@@ -39,4 +39,4 @@ def run_bot() -> None:
 
     bot.load_extension("dsubot.commands.faction")
 
-    bot.run(bot_config.token)
+    bot.run(bot_config.token.get_secret_value())

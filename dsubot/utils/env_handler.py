@@ -32,7 +32,7 @@ class BotConfig(BaseSettings):
 
     """
 
-    model_config = SettingsConfigDict(env_file=".env")
+    model_config = SettingsConfigDict(env_file=".env", extra="allow")
     guild_id: int
     token: SecretStr
 

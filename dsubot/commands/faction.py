@@ -1,5 +1,7 @@
 """module implements the faction command."""
 
+from typing import Any
+
 import disnake
 from disnake.ext import commands
 
@@ -22,7 +24,7 @@ class Faction(commands.Cog):
     )
     async def faction(
         self,
-        interaction: disnake.ApplicationCommandInteraction,  # type: ignore  # noqa: PGH003
+        interaction: disnake.ApplicationCommandInteraction[Any],
         lang: str = commands.Param(
             description="The language you want to represent.",
             choices=[
@@ -53,7 +55,25 @@ class Faction(commands.Cog):
             return
 
         try:
-            await remove_existing_roles(lang, member, interaction)
+            existing_lang_role = next(
+                (
+                    role
+                    for role in member.roles
+                    if role is not None
+                    and hasattr(role, "name")
+                    and role.name in language_branding.language_keys
+                    and role.name not in white_listed_roles
+                ),
+                None,
+            )
+            if existing_lang_role:
+                if existing_lang_role.name == lang:
+                    await interaction.response.send_message(
+                        f"You are already representing {lang}!",
+                        ephemeral=True,
+                    )
+                    return
+                await member.remove_roles(existing_lang_role)
 
             new_role = disnake.utils.get(interaction.guild.roles, name=lang)
 
@@ -79,11 +99,17 @@ class Faction(commands.Cog):
 
 
 async def remove_existing_roles(
-    roleToAdd: str, member: disnake.Member, interaction: disnake.Interaction
-):
-    """
-    Remove any existing roles that are not the one to be added, and if the user is already representing the faction, send a message.
-    """
+    role_to_add: str,
+    member: disnake.Member,
+    interaction: disnake.ApplicationCommandInteraction[Any],  # I cringe at this
+) -> None:
+    """Remove any existing roles that are not the one to be added, and if the user is
+    already representing the faction, send a message.
+
+    Remove any existing roles that are not the one to be added, and if the user is
+    already representing the faction, send a message.
+
+    """  # noqa: D205
     existing_lang_roles = [
         role
         for role in member.roles
@@ -94,13 +120,14 @@ async def remove_existing_roles(
     ]
 
     for existing in existing_lang_roles:
-        if existing.name != roleToAdd:
+        if existing.name != role_to_add:
             await member.remove_roles(existing)
         else:
             return await interaction.response.send_message(
-                f"You are already representing {roleToAdd}!",
+                f"You are already representing {role_to_add}!",
                 ephemeral=True,
             )
+    return None
 
 
 def setup(bot: commands.InteractionBot) -> None:

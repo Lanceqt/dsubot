@@ -37,6 +37,7 @@ language_branding: dict[str, ColorInfo] = {
     "F#": ColorInfo(int_value=2649164, hex_code="#3700FF"),  # F# Purple-Blue
     "Elixir": ColorInfo(int_value=16711680, hex_code="#4B275F"),  # Elixir Purple
     "Gleam": ColorInfo(int_value=16763635, hex_code="#FFAFF3"),  # Gleam Pink
+    "Zig": ColorInfo(int_value=16232477, hex_code="#F7A41D"),  # Zig Orange
 }
 
 language_keys: KeysView[str] = language_branding.keys()

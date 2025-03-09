@@ -38,5 +38,6 @@ def run_bot() -> None:
         await role_management.ensure_language_roles(bot, guild_id)
 
     bot.load_extension("dsubot.commands.faction")
+    bot.load_extension("dsubot.commands.leaderboard")  # Add this line
 
     bot.run(bot_config.token.get_secret_value())

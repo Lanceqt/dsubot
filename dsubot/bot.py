@@ -8,6 +8,7 @@ from disnake.ext import commands
 from dsubot.utils import role_management
 from dsubot.utils.env_handler import bot_config
 from dsubot.utils.logging_handler import setup_bot_logging
+from dsubot.utils.role_management import ensure_title_roles
 
 logger = logging.getLogger(__name__)
 
@@ -36,6 +37,7 @@ def run_bot() -> None:
         guild_id = bot_config.guild_id
 
         await role_management.ensure_language_roles(bot, guild_id)
+        await ensure_title_roles(bot, bot_config.guild_id)
 
     bot.load_extension("dsubot.commands.faction")
     bot.load_extension("dsubot.commands.leaderboard")

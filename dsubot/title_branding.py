@@ -22,6 +22,7 @@ title_branding: dict[str, TitleInfo] = {
     "QA Engineer": TitleInfo(display_name="QA Engineer"),
     "Cloud Engineer": TitleInfo(display_name="Cloud Engineer"),
     "Security Engineer": TitleInfo(display_name="Security Engineer"),
+    "OS Developer": TitleInfo(display_name="OS Developer"),
 }
 
 title_keys: KeysView[str] = title_branding.keys()

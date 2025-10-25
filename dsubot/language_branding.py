@@ -32,7 +32,7 @@ language_branding: dict[str, ColorInfo] = {
     "Lua": ColorInfo(int_value=15066597, hex_code="#2C2D72"),  # Lua Blue
     "Haskell": ColorInfo(int_value=16711680, hex_code="#5D4F85"),  # Haskell Purple
     "Rust": ColorInfo(int_value=16777215, hex_code="#000000"),  # Rust Black
-    "Delphi": ColorInfo(int_value=16760576, hex_code="#E64646"),  # Delphi Red
+   # "Delphi": ColorInfo(int_value=16760576, hex_code="#E64646"),  # Delphi Red
     "OCaml": ColorInfo(int_value=16764057, hex_code="#E37F1E"),  # OCaml Orange
     "F#": ColorInfo(int_value=2649164, hex_code="#3700FF"),  # F# Purple-Blue
     "Elixir": ColorInfo(int_value=16711680, hex_code="#4B275F"),  # Elixir Purple

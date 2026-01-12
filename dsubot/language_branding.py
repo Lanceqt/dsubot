@@ -24,6 +24,7 @@ language_branding: dict[str, ColorInfo] = {
     "Swift": ColorInfo(int_value=16752640, hex_code="#F05138"),  # Swift Orange-Red
     "Kotlin": ColorInfo(int_value=15065600, hex_code="#A97BFF"),  # Kotlin Purple
     "Ruby": ColorInfo(int_value=16711680, hex_code="#CC342D"),  # Ruby Red
+    "Dart": ColorInfo(int_value=4244735, hex_code="#40C4FF"), # Dart Blue
     "R": ColorInfo(int_value=4249477, hex_code="#276DC3"),  # R Blue
     "Objective-C": ColorInfo(int_value=16777215, hex_code="#F09433"),  # ObjC Orange
     "TypeScript": ColorInfo(int_value=3447003, hex_code="#3178C6"),  # TS Blue
